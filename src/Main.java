@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,7 +35,8 @@ public class Main extends JFrame{
 		});
 		toolBar.add(load);
 		
-		JButton save = new JButton("Guardar");
+		ImageIcon guardar = new ImageIcon("C:\\Users\\aula9\\Downloads\\guardar.png");
+		JButton save = new JButton(guardar);
 		save.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
