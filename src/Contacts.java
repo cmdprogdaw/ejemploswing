@@ -9,16 +9,16 @@ public class Contacts extends TreeMap<String, String> {
 	
 	public String exec(String cmd){
 		String result = null;
+		
 		Scanner s = new Scanner(cmd);
 		int estado = 0;
 		String token;
-		String nombre = "";
+		String nombre = null;
 		while (estado != 5) {
 			switch (estado) {
 			case 0:
 				try {
-					token = s.skip("buscar|[a-zA-ZáéíóúÁÉÍÓÚ]+\\s+([a-zA-ZáéíóúÁÉÍÓÚ]+\\s+)*[a-zA-ZáéíóúÁÉÍÓÚ]+|[a-zA-ZáéíóúÁÉÍÓÚ]+").match().group(); //match contiene informacion acerca del trozo del token que se ha escaneado y para retornarlo se invoca group
-//					token = s.skip("fin|buscar|[^:-]+").match().group();
+					token = s.skip("buscar|\\\\p{L}+(\\\\s+\\\\p{L}+)*").match().group(); 
 					if (token.equals("buscar")) {
 						estado = 2;
 					}
@@ -30,7 +30,6 @@ public class Contacts extends TreeMap<String, String> {
 					result = "Se esperaba 'buscar' o 'fin' o un nombre";
 					estado = 5;
 				}
-
 				break;
 			case 1:
 				try {
@@ -62,8 +61,8 @@ public class Contacts extends TreeMap<String, String> {
 				break;
 			case 4:
 				try {
-					token = s.skip("[a-zA-ZáéíóúÁÉÍÓÚ]+\\s+([a-zA-ZáéíóúÁÉÍÓÚ]+\\s+)*[a-zA-ZáéíóúÁÉÍÓÚ]+|[a-zA-ZáéíóúÁÉÍÓÚ]+").match().group();
-					String telefono = get(token); //te da el telefono de ese token que es el nombre
+					token = s.skip("\\\\p{L}+(\\\\s+\\\\p{L}+)*").match().group();
+					String telefono = get(token); 
 					if (telefono != null) 
 						result = token + " -> " + telefono;
 					else
